@@ -8,6 +8,12 @@
     }
 }
 
+@media (max-width: 701px) {
+    .bottom-nav-text {
+        display: none;
+    }
+}
+
 
 /*Bottom nav*/
 .custom-bottom-navbar {
@@ -44,6 +50,8 @@ bottom-nav {
     margin: 0 10px;
 }
 
-.filterit {
-    filter: invert(34%) sepia(23%) saturate(4001%) hue-rotate(198deg) brightness(88%) contrast(84%);
+.bottom-nav-text {
+    margin: 0px;
 }
+
+

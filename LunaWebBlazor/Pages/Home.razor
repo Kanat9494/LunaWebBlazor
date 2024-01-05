@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@inject IStringLocalizer<Home> HLocalizer
+
 <PageTitle>Home</PageTitle>
 
 <style>
@@ -13,7 +15,7 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+<p>@HLocalizer["FilterHeaderText"]</p>
 
 @code {
 
@@ -26,6 +28,8 @@ Welcome to your new app.
         {
             Debug.WriteLine("Not rendering");
         }
+
+        var s = HLocalizer["HelloWorld"].Value;
     }
 
     protected override bool ShouldRender()

@@ -1,0 +1,62 @@
+﻿@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<div class="row">
+    <select class="form-select mb-2 selectpicker" value="@_selectedCulture" @onchange="OnRequestCultureChanged">
+        @foreach (var culture in _supportedCultures)
+        {
+            <option value="@culture.Key">@culture.Value</option>
+        }
+    </select>
+
+   @*  <select class="form-select mb-2 selectpicker" @bind="Culture">
+    @foreach (var culture in supportedCultures)
+    {
+    <option value="@culture">@culture.DisplayName</option>
+    }
+    </select> *@
+</div>
+
+@code {
+    private CultureInfo[] supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("es-CL"),
+    };
+    private Dictionary<string, string> _supportedCultures = new Dictionary<string, string>
+    {
+        ["en"] = "En",
+        ["ru"] = "Ru",
+        ["ky"] = "Ky",
+    };
+    private string _selectedCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+
+    private CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                var js = (IJSInProcessRuntime)JS;
+                js.InvokeVoid("blazorCulture.set", value.Name);
+
+                Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+            }
+        }
+    }
+
+    private void OnRequestCultureChanged(ChangeEventArgs args)
+    {
+        _selectedCulture = args.Value.ToString();
+        if (string.IsNullOrEmpty(_selectedCulture))
+        {
+            return;
+        }
+
+        var js = (IJSInProcessRuntime)JS;
+        js.InvokeVoid("blazorCulture.set", args.Value.ToString());
+
+        Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+    }
+}
