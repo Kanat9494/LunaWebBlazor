@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaWebBlazor", "LunaWebBlazor\LunaWebBlazor.csproj", "{CDC3C42D-0B72-43F3-A7B7-CEE5B4224042}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDC3C42D-0B72-43F3-A7B7-CEE5B4224042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC3C42D-0B72-43F3-A7B7-CEE5B4224042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC3C42D-0B72-43F3-A7B7-CEE5B4224042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC3C42D-0B72-43F3-A7B7-CEE5B4224042}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7031771B-848F-40E8-A01F-1905088EA414}
+	EndGlobalSection
+EndGlobal
