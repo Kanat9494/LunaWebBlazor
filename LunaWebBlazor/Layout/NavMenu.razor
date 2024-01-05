@@ -1,39 +1,91 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">LunaWebBlazor</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿<div class="fixed-bottom custom-bottom-navbar">
+    <nav class="bottom-nav">
+        <ul class="bottom-nav-list">
+            <li class="bottom-nav-list-item" >
+                <a href="" id="active-home">
+                    <img src="icons/home_icon.svg"
+                         style="width: 25px; height: 25px;"/>
+                    <span class="mt-1">Главная</span>
+                </a>
+            </li>
+            <li class="bottom-nav-list-item">
+                <a href="counter">
+                    <img src="icons/favorite_icon.svg" />
+                    Избранные
+                </a>
+            </li>
+            <li class="bottom-nav-list-item">
+                <a>
+                    <img src="icons/add_icon.svg" />
+                    Добавить
+                </a>
+            </li>
+            <li class="bottom-nav-list-item">
+                <a>
+                    <img src="icons/profile_icon.svg" />
+                    Профиль
+                </a>
+            
+            </li>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
+        </ul>
     </nav>
 </div>
+@*
+    <nav id="bottom-nav" class="mobile-bottom-nav fixed-bottom">
+        <div class="mobile-bottom-nav__item text-center" style="background: black;">
+            <a href="" @onclick="HomeStatus" id="is-home-active">
+                <div class="mobile-bottom-nav__item-content">
+                    <img src="icons/home_icon.svg" style="width: 25px; height: 25px;" />
+                </div>
+            </a>
+        </div>
+
+        <div class="mobile-bottom-nav__item" style="background: green;">
+            <a href="counter" @onclick="AccountStatus" id="is-account-active">
+                <div class="mobile-bottom-nav__item-content">
+                    <img src="icons/favorite_icon.svg" style="width: 25px; height: 25px;" />
+                </div>
+            </a>
+        </div>
+
+        <div class="mobile-bottom-nav__item" style="background: red;">
+            <a href="counter" @onclick="AccountStatus" id="is-account-active">
+                <div class="mobile-bottom-nav__item-content">
+                    <img src="icons/add_icon.svg" style="width: 25px; height: 25px;" />
+                </div>
+            </a>
+        </div>
+
+        <div class="mobile-bottom-nav__item">
+            <a href="counter" @onclick="AccountStatus" id="is-account-active">
+                <div class="mobile-bottom-nav__item-content">
+                    <img src="icons/profile_icon.svg" style="width: 25px; height: 25px;" />
+                </div>
+            </a>
+        </div>
+
+
+
+    </nav>
+</div> *@
 
 @code {
     private bool collapseNavMenu = true;
+    private bool isHome = true;
+    private bool isAccount = false;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
+    void HomeStatus()
     {
-        collapseNavMenu = !collapseNavMenu;
+        isHome = true;
+        isAccount = false;
+    }
+
+    void AccountStatus()
+    {
+        isHome = false;
+        isAccount = true;
     }
 }

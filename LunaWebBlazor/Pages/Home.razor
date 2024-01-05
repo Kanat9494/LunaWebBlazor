@@ -2,15 +2,34 @@
 
 <PageTitle>Home</PageTitle>
 
+<style>
+    #active-home {
+        color: #3066BE !important;
+    }
+    #active-home img {
+        filter: invert(34%) sepia(23%) saturate(4001%) hue-rotate(198deg) brightness(88%) contrast(84%);
+    }
+</style>
+
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
 @code {
 
-
     protected override async Task OnInitializedAsync()
     {
-        
+        var shouldRender = ShouldRender();
+        if (shouldRender)
+            Debug.WriteLine("Repeating render");
+        else
+        {
+            Debug.WriteLine("Not rendering");
+        }
+    }
+
+    protected override bool ShouldRender()
+    {
+        return base.ShouldRender();
     }
 }
