@@ -8,6 +8,7 @@ ul {
 
 .top-navbar {
     background: transparent;
+    border-bottom: 1px solid #A0A0A0;
 }
 
 .top-container {
@@ -86,3 +87,4 @@ ul {
 .third select.form-select {
     background-color: #E3F2FD; 
 }
+
