@@ -1,20 +1,13 @@
 ﻿@inject IJSRuntime JS
 @inject NavigationManager Navigation
 
-<div class="row">
+<div>
     <select class="form-select mb-2 selectpicker" value="@_selectedCulture" @onchange="OnRequestCultureChanged">
         @foreach (var culture in _supportedCultures)
         {
             <option value="@culture.Key">@culture.Value</option>
         }
     </select>
-
-   @*  <select class="form-select mb-2 selectpicker" @bind="Culture">
-    @foreach (var culture in supportedCultures)
-    {
-    <option value="@culture">@culture.DisplayName</option>
-    }
-    </select> *@
 </div>
 
 @code {

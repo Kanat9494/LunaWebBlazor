@@ -1,14 +1,59 @@
 ﻿@inherits LayoutComponentBase
+@inject IStringLocalizer<MainLayout> MLLocalizer
+
 <div class="page">
     <div>
         <NavMenu />
     </div>
 
-    <main>
-        <div class="top-row px-4">
-            <CultureSelector />
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+    <header class="fixed-top top-navbar">
+        <div class="top-container">
+            <div class="first text-center" style="vertical-align:central">
+                <a href="">
+                    <img src="images/logo.png" style="width: 86px; height: 45px;" />
+                </a>
+            </div>
+            <div class="second">
+                <div id="top-active-home" class="rounded-box p-3" style="margin-right: 20px;">
+                    <a href="">
+                        @MLLocalizer["TopMenuText1"]
+                    </a>
+                </div>
+                <div class="rounded-box p-3" style="margin-right: 20px;">
+                    <a href="counter">
+                        @MLLocalizer["TopMenuText2"]
+
+                    </a>
+                </div>
+                
+                <div class="rounded-box p-3" style="margin-right: 20px;">
+                    <a href="">
+                        @MLLocalizer["TopMenuText3"]
+
+                    </a>
+                </div>
+            </div>
+            <div class="third">
+                <div class="top-search-box">
+                    <i class="material-icons" style="color: #3066BE">search</i>
+
+                </div>
+                
+                <CultureSelector />
+
+                <button class="btn" style="background-color: #FF7F51; width: auto; display: flex;
+                    margin-right: 10px; margin-left: 10px;">
+                    <i class="material-icons" style="color: white">add</i>
+                    <span style="color: white">Подать объявление</span>
+                </button>
+
+            </div>
+            
         </div>
+    </header>
+
+    <main style="margin-top: 80px;">
+        
 
         <article class="content px-4">
             @Body
