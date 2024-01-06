@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Brand" xml:space="preserve">
+    <value>Бренд</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Датасы</value>
+  </data>
   <data name="FullFilter" xml:space="preserve">
     <value>Узун фильтр</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Баасы</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Издоо</value>
   </data>
   <data name="ShortFilter" xml:space="preserve">
     <value>Кыска фильтр</value>

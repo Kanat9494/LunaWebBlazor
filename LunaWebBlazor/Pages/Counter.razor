@@ -8,11 +8,26 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+
+<select @onchange="OnBrandChanged">
+    @for (int i = 0; i < 10; i++)
+    {
+        <option value="@i">@i</option>
+    }
+</select>
+
 @code {
+
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+
+    private void OnBrandChanged(ChangeEventArgs e)
+    {
+        currentCount = 5;
     }
 }

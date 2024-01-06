@@ -50,18 +50,71 @@
 
     }
 
-    
+    .custom-input {
+        background-color: #E3F2FD;
+        border-radius: 5px; 
+        padding: 6px; 
+        border: none; 
+        outline: none;
+        color: #A0A0A0;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* Скрытие стрелок в Chrome и Safari */
+        margin: 0; /* Не показывать никакого отступа */
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield; /* Отображение стандартного текстового поля в Firefox */
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        color: rgba(0, 0, 0, 0);
+        opacity: 1;
+        display: block;
+        background: url("icons/calendar_icon.svg") no-repeat;
+        width: 20px;
+        height: 20px;
+        border-width: thin;
+    }
+
+    .filter-button {
+        width: 198px;
+        height: 40px;
+        background: #3066BE;
+        color: white;
+        margin-right: 10px;
+    }
+
+    .search-button {
+        width: 198px;
+        height: 40px;
+        background: #FF7F51;
+        color: white;
+        margin-left: 10px;
+    }
+
+    .filter-button:hover {
+        color: white;
+    }
+    .search-button:hover {
+        color: white;
+    }
 </style>
+
+
 
 <h2 class="text-center" style="font-size: 24px; font-weight: 700; color: #3066BE">@_filterText</h2>
 
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <span class="search-text-title">Brand</span>
+            <span class="search-text-title">@HLocalizer["Brand"]</span>
         </div>
+
         <div class="col-6">
-            <span class="search-text-title">Model</span>
+            <span class="search-text-title">@HLocalizer["Model"]</span>
         </div>
 
     </div>
@@ -71,9 +124,12 @@
             <div class="brand-search-box">
                 <select class="form-select mb-2 selectpicker" value="@_selectedBrand" @onchange="OnBrandChanged">
                     
-                    @foreach (var item in _brands)
+                    @if (_brands.Count > 0)
                     {
-                        <option value="@item">@item</option>
+                        foreach (var item in _brands)
+                        {
+                            <option value="@item">@item</option>
+                        }
                     }
                 </select>
                
@@ -83,47 +139,190 @@
         <div class="col-6">
             <div class="brand-search-box">
                 <select class="form-select mb-2 selectpicker" value="@_selectedModel" >
-                    @for (int i = 0; i < _models.Count; i++)
+                    @if (_models.Count > 0)
                     {
-                        <option value="@_brands[i]">@_models[i]</option>
+                        for (int i = 0; i < _models.Count; i++)
+                        {
+                            <option value="@_models[i]">@_models[i]</option>
+                        }
                     }
                 </select>
 
             </div>
         </div>
+
+        
     </div>
 
-    <span class="material-symbols-outlined" style="color: blue;">
-        arrow_forward_ios
-    </span>
-</div>
+    <div class="row">
+        <div class="col-6">
+            <span class="search-text-title">@HLocalizer["Price"]</span>
+        </div>
+        <div class="col-6">
+            <span class="search-text-title">@HLocalizer["Date"]</span>
+        </div>
 
-<select>
-    @for (int i = 0; i < 10; i++)
+
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <div class="brand-search-box">
+                <input @bind="_startPrice" class="custom-input form-control" type="number"
+                    placeholder="Start from"/>
+
+
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="brand-search-box">
+                <input @bind="_tillPrice" class="custom-input form-control" type="number" placeholder="Till"/>
+
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="brand-search-box">
+                <input class="custom-input form-control" type="date" @bind="_dateFrom"/>
+
+
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="brand-search-box">
+                <input class="custom-input form-control" type="date" @bind="_dateTo"/>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    @if (!_isShortFilter)
     {
-        <option>@i</option>
+        <div class="row mt-2">
+            <div class="col-3">
+                <span class="search-text-title">Color</span>
+
+            </div>
+            <div class="col-3">
+                <span class="search-text-title">Transmission</span>
+
+
+            </div>
+            <div class="col-3">
+                <span class="search-text-title">Mileage</span>
+
+
+            </div>
+            <div class="col-3">
+                <span class="search-text-title">Engine</span>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <input class="custom-input form-control" placeholder="Color" />
+            </div>
+            <div class="col-3">
+                <input class="custom-input form-control" placeholder="Transmission" />
+
+            </div>
+            <div class="col-3">
+                <input class="custom-input form-control" placeholder="Mileage" />
+
+            </div>
+            <div class="col-3">
+                <input class="custom-input form-control" placeholder="Engin" />
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <span class="search-text-title">Body type</span>
+            </div>
+
+            <div class="col-6">
+                <span class="search-text-title">Seats</span>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="brand-search-box">
+                    <select class="form-select mb-2 selectpicker" value="@_selectedBrand" @onchange="OnBrandChanged">
+
+                        @if (_brands.Count > 0)
+                        {
+                            foreach (var item in _brands)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="brand-search-box">
+                    <select class="form-select mb-2 selectpicker" value="@_selectedModel">
+                        @if (_models.Count > 0)
+                        {
+                            for (int i = 0; i < _models.Count; i++)
+                            {
+                                <option value="@_models[i]">@_models[i]</option>
+                            }
+                        }
+                    </select>
+
+                </div>
+            </div>
+
+
+        </div>
     }
-</select>
+
+    <div class="row mt-3">
+        <div class="col-3">
+        </div>
+        <div class="col-6 text-center">
+            <button class="btn filter-button" @onclick="HandleFilter">@_filterBtnText</button>
+            <button class="btn search-button">@HLocalizer["Search"]</button>
+
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+</div> 
+
 
 @code {
     private string _filterText = "";
+    private string _filterBtnText = "";
     private bool _isShortFilter = true;
     private string _selectedBrand = "";
     private string _selectedModel = "";
+    private bool _isModelsLoaded = false;
     private List<string> _brands = new List<string>();
+    private double? _startPrice;
+    private double? _tillPrice;
+    private DateTime? _dateFrom;
+    private DateTime? _dateTo;
+
     private List<string> _models = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
         _filterText = _isShortFilter ? HLocalizer["ShortFilter"] : HLocalizer["FullFilter"];
-        _brands = new List<string>()
-        {
-            "KIA",
-            "Toyota",
-            "Hyunday",
-            "Lexus"
-        };
+        _brands = GenerateBrands();
         _selectedBrand = _brands[0];
+        _filterBtnText = _isShortFilter ? HLocalizer["FullFilter"] : HLocalizer["ShortFilter"];
+
+        await Task.Delay(1000);
+
     }
 
     protected override bool ShouldRender()
@@ -140,19 +339,43 @@
             "Hyunday",
             "Lexus"
         };
+
     }
 
-    private void OnBrandChanged(ChangeEventArgs args)
+    private void OnBrandChanged(ChangeEventArgs e)
     {
-        _models = new List<string>
+        try
         {
-            "Morning",
-            "K5",
-            "K7",
-            "Mohave",
-            "K9",
-            "Optimag"
-        };
-        _selectedModel = _models[0];
+            _selectedBrand = e.Value.ToString();
+            _models = new List<string>
+            {
+                "Morning",
+                "K5",
+                "K7",
+                "Mohave",
+                "K9",
+                "Optimag"
+            };
+            _selectedModel = _models[0];
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void CountClick()
+    {
+        var c = Convert.ToDateTime(_dateFrom).ToString("ddMMyyyy");
+        var k = Convert.ToDateTime(_dateTo).ToString("ddMMyyyy");
+    }
+
+    private void HandleFilter()
+    {
+        _isShortFilter = !_isShortFilter;
+        _filterText = _isShortFilter ? HLocalizer["ShortFilter"] : HLocalizer["FullFilter"];
+        _filterBtnText = _isShortFilter ? HLocalizer["FullFilter"] : HLocalizer["ShortFilter"];
+
     }
 }
