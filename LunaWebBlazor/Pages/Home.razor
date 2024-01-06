@@ -84,7 +84,6 @@
         height: 40px;
         background: #3066BE;
         color: white;
-        margin-right: 10px;
     }
 
     .search-button {
@@ -92,7 +91,6 @@
         height: 40px;
         background: #FF7F51;
         color: white;
-        margin-left: 10px;
     }
 
     .filter-button:hover {
@@ -289,14 +287,55 @@
         <div class="col-3">
         </div>
         <div class="col-6 text-center">
-            <button class="btn filter-button" @onclick="HandleFilter">@_filterBtnText</button>
-            <button class="btn search-button">@HLocalizer["Search"]</button>
+            <button class="btn filter-button m-1" @onclick="HandleFilter">@_filterBtnText</button>
+            <button class="btn search-button m-1">@HLocalizer["Search"]</button>
 
         </div>
         <div class="col-3">
         </div>
     </div>
 </div> 
+
+<div class="container">
+    <div class="row">
+        @if (Cars.Count > 0)
+        {
+            @for(int i = 0; i < Cars.Count; i++)
+            {
+                <div class="col-4">
+                    @Cars[i].Location
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="text-center">
+    <input type="button" class="btn-lg btn" id="prev" value="Previous" @onclick="PreviousPage"/>
+
+    @for (int i = 0; i <= _pageCount; i++)
+    {
+        int j = i;
+        if (i > 0)
+        {
+            if (i == _currentPage)
+            {
+                <span style="color: #3066BE; font-weight: bold; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+            }
+            else
+            {
+                <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+            }
+
+        }
+
+    }
+
+    <input type="button" class="btn-lg btn" id="nex" value="Next" @onclick="NextPage"/>
+
+</div>
 
 
 @code {
@@ -311,6 +350,10 @@
     private double? _tillPrice;
     private DateTime? _dateFrom;
     private DateTime? _dateTo;
+    private int _currentPage = 1;
+    private List<Car> Cars = new List<Car>();
+    private int _totalCarsCount = 0;
+    private int _pageCount;
 
     private List<string> _models = new List<string>();
 
@@ -324,7 +367,7 @@
         await Task.Delay(1000);
 
 
-
+        await LoadCars();
     }
 
     protected override bool ShouldRender()
@@ -379,5 +422,58 @@
         _filterText = _isShortFilter ? HLocalizer["ShortFilter"] : HLocalizer["FullFilter"];
         _filterBtnText = _isShortFilter ? HLocalizer["FullFilter"] : HLocalizer["ShortFilter"];
 
+    }
+
+    private async Task LoadCars()
+    {
+        _totalCarsCount = 500;
+        _pageCount = _totalCarsCount / ProjectConstants.PAGE_SIZE;
+    }
+
+    private async Task NextPage()
+    {
+        _currentPage++;
+    }
+    private async Task PreviousPage()
+    {
+        if (_currentPage > 1)
+        {
+            _currentPage--;
+
+        }
+    }
+
+    private async Task HandlePageNumber(int pageNumber)
+    {
+        Cars.Clear();
+        _currentPage = pageNumber;
+        if (pageNumber > 1)
+        {
+            int countToSkip = pageNumber - 1;
+            countToSkip = ProjectConstants.PAGE_SIZE * countToSkip;
+            var currentCount = ProjectConstants.PAGE_SIZE * pageNumber;
+            for (int i = countToSkip; i < currentCount; i++)
+            {
+                Cars.Add(new Car
+                {
+                    CarId = i,
+                    Color = "#00cc54",
+                    Title = "Toyota Rav4",
+                    YearOfIssue = 2000 + i,
+                    SubTitle = "Suv 5 Doors",
+                    Volume = (double)i,
+                    Mileage = i,
+                    Location = "Bishkek",
+                    Images = new List<string>()
+                    {
+                        $"https://picsum.photos/id/{i}/200/300",
+                        $"https://picsum.photos/id/{i}/200/300",
+                        $"https://picsum.photos/id/{i}/200/300",
+                        $"https://picsum.photos/id/{i}/200/300",
+                        $"https://picsum.photos/id/{i}/200/300",
+                    }
+                });
+            }
+        }
     }
 }
