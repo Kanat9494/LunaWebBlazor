@@ -18,11 +18,85 @@
     #top-active-home a {
         color: white;
     }
+
+    .brand-search-box {
+        padding: 0;
+    }
+
+    .brand-search-box select.form-select {
+        color: #A0A0A0;
+        -webkit-appearance: none;
+        -webkit-user-select: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: none;
+        border: none;
+        outline: none;
+        padding-left: 10px;
+        width: 100%;
+        height: 36px;
+
+        text-align: start;
+        line-height: 25px;
+        background-color: #E3F2FD;
+
+        background-image: url("icons/arrow_forward.svg");
+        background-position: right center; /*Positioning*/
+        background-repeat: no-repeat; 
+        background-size: 20px 20px, 20px 20px, 2.5em 2.5em;
+    }
+
+    .brand-search-box .select-items div, .select-selected {
+
+    }
+
+    
 </style>
 
-<h1>Hello, world!</h1>
+<h2 class="text-center" style="font-size: 24px; font-weight: 700; color: #3066BE">@_filterText</h2>
 
-<p>@HLocalizer["FilterHeaderText"]</p>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <span class="search-text-title">Brand</span>
+        </div>
+        <div class="col-6">
+            <span class="search-text-title">Model</span>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="brand-search-box">
+                <select class="form-select mb-2 selectpicker" value="@_selectedBrand" @onchange="OnBrandChanged">
+                    
+                    @foreach (var item in _brands)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+               
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="brand-search-box">
+                <select class="form-select mb-2 selectpicker" value="@_selectedModel" >
+                    @for (int i = 0; i < _models.Count; i++)
+                    {
+                        <option value="@_brands[i]">@_models[i]</option>
+                    }
+                </select>
+
+            </div>
+        </div>
+    </div>
+
+    <span class="material-symbols-outlined" style="color: blue;">
+        arrow_forward_ios
+    </span>
+</div>
 
 <select>
     @for (int i = 0; i < 10; i++)
@@ -32,22 +106,53 @@
 </select>
 
 @code {
+    private string _filterText = "";
+    private bool _isShortFilter = true;
+    private string _selectedBrand = "";
+    private string _selectedModel = "";
+    private List<string> _brands = new List<string>();
+    private List<string> _models = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
-        var shouldRender = ShouldRender();
-        if (shouldRender)
-            Debug.WriteLine("Repeating render");
-        else
+        _filterText = _isShortFilter ? HLocalizer["ShortFilter"] : HLocalizer["FullFilter"];
+        _brands = new List<string>()
         {
-            Debug.WriteLine("Not rendering");
-        }
-
-        var s = HLocalizer["HelloWorld"].Value;
+            "KIA",
+            "Toyota",
+            "Hyunday",
+            "Lexus"
+        };
+        _selectedBrand = _brands[0];
     }
 
     protected override bool ShouldRender()
     {
         return base.ShouldRender();
+    }
+
+    private List<string> GenerateBrands()
+    {
+        return new List<string>()
+        {
+            "KIA",
+            "Toyota",
+            "Hyunday",
+            "Lexus"
+        };
+    }
+
+    private void OnBrandChanged(ChangeEventArgs args)
+    {
+        _models = new List<string>
+        {
+            "Morning",
+            "K5",
+            "K7",
+            "Mohave",
+            "K9",
+            "Optimag"
+        };
+        _selectedModel = _models[0];
     }
 }

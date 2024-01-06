@@ -81,10 +81,21 @@ ul {
     line-height: 36px;
     margin-top: 8px;
     color: #3066BE;
+    background-color: #E3F2FD;
 }
 
-/* Изменение цвета фона у селекта */
-.third select.form-select {
-    background-color: #E3F2FD; 
+
+.search-text-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #3D3D3D;
+    font-family: sans-serif;
+}
+
+.search-text-hint {
+    font-size: 16px;
+    font-weight: 600;
+    color: #3D3D3D;
+    font-family: sans-serif;
 }
 
