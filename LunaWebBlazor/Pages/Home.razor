@@ -99,13 +99,20 @@
     .search-button:hover {
         color: white;
     }
+
+    
 </style>
 
 
+<div class="container mobile-search mb-3">
+    <input @bind="_startPrice" class="custom-input form-control" type="number"
+           placeholder="Start from" />
+</div>
 
-<h2 class="text-center" style="font-size: 24px; font-weight: 700; color: #3066BE">@_filterText</h2>
 
-<div class="container">
+<div class="container desktop-search">
+    <h2 class="text-center" style="font-size: 24px; font-weight: 700; color: #3066BE">@_filterText</h2>
+
     <div class="row">
         <div class="col-6">
             <span class="search-text-title">@HLocalizer["Brand"]</span>
@@ -296,13 +303,13 @@
     </div>
 </div> 
 
-<div class="container">
+<div class="container mt-2">
     <div class="row">
         @if (Cars.Count > 0)
         {
             @for(int i = 0; i < Cars.Count; i++)
             {
-                <div class="col-4">
+                <div class="col-4" >
                     @Cars[i].Location
                 </div>
             }
@@ -310,30 +317,34 @@
     </div>
 </div>
 
-<div class="text-center">
-    <input type="button" class="btn-lg btn" id="prev" value="Previous" @onclick="PreviousPage"/>
+<div class="text-center container">
+    <div class="row">
+        <div class="col-12">
+            <input type="button" class="btn-lg btn" id="prev" value="Previous" @onclick="PreviousPage" />
 
-    @for (int i = 0; i <= _pageCount; i++)
-    {
-        int j = i;
-        if (i > 0)
-        {
-            if (i == _currentPage)
+            @for (int i = 0; i <= _pageCount; i++)
             {
-                <span style="color: #3066BE; font-weight: bold; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+                int j = i;
+                if (i > 0)
+                {
+                    if (i == _currentPage)
+                    {
+                        <span style="color: #3066BE; font-weight: bold; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+                    }
+                    else
+                    {
+                        <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+                    }
+
+                }
 
             }
-            else
-            {
-                <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
 
-            }
-
-        }
-
-    }
-
-    <input type="button" class="btn-lg btn" id="nex" value="Next" @onclick="NextPage"/>
+            <input type="button" class="btn-lg btn" id="nex" value="Next" @onclick="NextPage" />
+        </div>
+    </div>
 
 </div>
 
