@@ -1,6 +1,4 @@
-.custom-bottom-navbar {
-    background-color: transparent;
-}
+
 
 @media (min-width: 901px) {
     .custom-bottom-navbar {
@@ -17,7 +15,7 @@
 
 /*Bottom nav*/
 .custom-bottom-navbar {
-    background-color: transparent;
+    background-color: white;
     height: 50px;
 }
 
