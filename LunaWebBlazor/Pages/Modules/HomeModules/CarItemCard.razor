@@ -1,0 +1,56 @@
+﻿<style>
+    .car-item-cart {
+        height: 160px;
+        background: #E3F2FD;
+        border-radius: 5px;
+    }
+
+    .car-color-box {
+        height: 16px;
+        width: 16px;
+        border-radius: 2px;
+        margin-left: 5px;
+        margin-top: 8px;
+        margin-right: 10px;
+    }
+
+    .car-title {
+        font-weight: 500;
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    .small-box {
+        border-radius: 0.5px;
+        width: 4px;
+        height: 4px;
+        background: black;
+    }
+</style>
+
+<div class="col-md-4 col-12 mb-3">
+    <div class="w-100 max-width-407 car-item-cart">
+        <div class="row">
+            <div class="col-10 text-start d-flex" >
+                <div style="background: @CarColor;" class="car-color-box">
+                </div>
+                <span class="car-title ">@CarItem.Title</span>
+                <div class="small-box m-3" ></div>
+                <span class="car-title">@CarItem.YearOfIssue</span>
+            </div>
+
+            <div class="col-2">
+                qwet
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Car CarItem { get; set; }
+
+    private string CarColor => CarItem.Color;
+
+    
+}

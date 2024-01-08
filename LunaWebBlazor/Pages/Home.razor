@@ -100,10 +100,7 @@
         color: white;
     }
 
-    .car-item-cart {
-        height: 160px;
-        background: #E3F2FD;
-    }
+    
 </style>
 
 
@@ -312,24 +309,8 @@
         {
             @for(int i = 0; i < Cars.Count; i++)
             {
-                <div class="col-md-4 col-12 mb-3">
-                    @* @if (i % 2 == 0)
-                    {
-                        <div class="w-100 max-width-407 car-item-cart mr-1 ml-1">
-                            @Cars[i].Location
-                        </div>
-                    }
-                    else 
-                    {
-                        <div class="w-100 max-width-407 car-item-cart">
-                            @Cars[i].Location
-                        </div>
-                    } *@
-                    <div class="w-100 max-width-407 car-item-cart">
-                        @Cars[i].Location
-                    </div>
-                </div>
-
+                
+                <CarItemCard CarItem="Cars[i]"/>
                
             }
         }
