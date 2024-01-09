@@ -468,25 +468,56 @@
             var currentCount = ProjectConstants.PAGE_SIZE * pageNumber;
             for (int i = countToSkip; i < currentCount; i++)
             {
-                Cars.Add(new Car
+                if (i % 2 == 0)
                 {
-                    CarId = i,
-                    Color = "#00cc54",
-                    Title = "Toyota Rav4",
-                    YearOfIssue = 2000 + i,
-                    SubTitle = "Suv 5 Doors",
-                    Volume = (double)i,
-                    Mileage = i,
-                    Location = "Bishkek",
-                    Images = new List<string>()
+                    Cars.Add(new Car
                     {
-                        $"https://picsum.photos/id/{i}/200/300",
-                        $"https://picsum.photos/id/{i}/200/300",
-                        $"https://picsum.photos/id/{i}/200/300",
-                        $"https://picsum.photos/id/{i}/200/300",
-                        $"https://picsum.photos/id/{i}/200/300",
-                    }
-                });
+                        CarId = i,
+                        Color = "#00cc54",
+                        Title = "Toyota Rav4",
+                        YearOfIssue = 2000 + i,
+                        SubTitle = "SUV 5 Doors",
+                        Volume = (double)i,
+                        Mileage = i,
+                        Location = "Bishkek",
+                        Liked = true,
+                        Images = new List<string>()
+                        {
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                        },
+                        Price = i * countToSkip
+                    });
+                }
+                else
+                {
+                    Cars.Add(new Car
+                    {
+                        CarId = i,
+                        Color = "#00cc54",
+                        Title = "Toyota Rav4",
+                        YearOfIssue = 2000 + i,
+                        SubTitle = "Suv 5 Doors",
+                        Volume = (double)i,
+                        Mileage = i,
+                        Location = "Bishkek",
+                        Liked = false,
+                        Images = new List<string>()
+                        {
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                        },
+                        Price = i * countToSkip
+
+                    });
+                }
+
             }
         }
     }

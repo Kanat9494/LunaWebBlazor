@@ -11,4 +11,6 @@ public class Car
     public int Mileage { get; set; }
     public string Location { get; set; }
     public List<string> Images { get; set; }
+    public bool Liked { get; set; }
+    public double Price { get; set; }
 }
