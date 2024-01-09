@@ -322,30 +322,34 @@
 <div class="text-center container">
     <div class="row">
         <div class="col-12">
-            <input type="button" class="btn-lg btn" id="prev" value="Previous" @onclick="PreviousPage" />
+            <input type="button" class="btn-lg btn" id="prev" value="Previous" @onclick="() => HandlePageNumber(_currentPage - 1)" />
 
             @for (int i = 0; i <= _pageCount; i++)
             {
                 int j = i;
-                if (i > 0)
+                if (i > 0 )
                 {
-
                     if (i == _currentPage)
                     {
                         <span style="color: #3066BE; font-weight: bold; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
 
                     }
-                    else
+                    else if (i == _currentPage + 1)
                     {
                         <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
 
                     }
+                    else if (i == _currentPage - 1)
+                    {
+                        <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
 
+                    }
                 }
 
             }
 
-            <input type="button" class="btn-lg btn" id="nex" value="Next" @onclick="NextPage" />
+
+            <input type="button" class="btn-lg btn" id="nex" value="Next" @onclick="() => HandlePageNumber(_currentPage + 1)" />
         </div>
     </div>
 
@@ -442,6 +446,60 @@
     {
         _totalCarsCount = 500;
         _pageCount = _totalCarsCount / ProjectConstants.PAGE_SIZE;
+
+        for (int i = 0; i < ProjectConstants.PAGE_SIZE; i++)
+        {
+            if (i % 2 == 0)
+            {
+                Cars.Add(new Car
+                    {
+                        CarId = i,
+                        Color = "#00cc54",
+                        Title = "Toyota Rav4",
+                        YearOfIssue = 2000 + i,
+                        SubTitle = "SUV 5 Doors",
+                        Volume = (double)i,
+                        Mileage = i,
+                        Location = "Bishkek",
+                        Liked = true,
+                        Images = new List<string>()
+                        {
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                        },
+                        Price = i * ProjectConstants.PAGE_SIZE
+                    });
+            }
+            else
+            {
+                Cars.Add(new Car
+                    {
+                        CarId = i,
+                        Color = "#00cc54",
+                        Title = "Toyota Rav4",
+                        YearOfIssue = 2000 + i,
+                        SubTitle = "Suv 5 Doors",
+                        Volume = (double)i,
+                        Mileage = i,
+                        Location = "Bishkek",
+                        Liked = false,
+                        Images = new List<string>()
+                        {
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                        },
+                        Price = i * ProjectConstants.PAGE_SIZE
+
+                    });
+            }
+
+        }
     }
 
     private async Task NextPage()
@@ -455,10 +513,14 @@
             _currentPage--;
 
         }
+
+        await HandlePageNumber(_currentPage);
     }
 
     private async Task HandlePageNumber(int pageNumber)
     {
+        if (pageNumber <= 0 || pageNumber > _pageCount)
+            return;
         Cars.Clear();
         _currentPage = pageNumber;
         if (pageNumber > 1)
@@ -516,6 +578,65 @@
                         Price = i * countToSkip
 
                     });
+                }
+
+            }
+        }
+        else if (pageNumber == 1)
+        {
+            int countToSkip = pageNumber;
+            countToSkip = ProjectConstants.PAGE_SIZE * countToSkip;
+            var currentCount = ProjectConstants.PAGE_SIZE * pageNumber;
+            for (int i = 0; i < currentCount; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Cars.Add(new Car
+                        {
+                            CarId = i,
+                            Color = "#00cc54",
+                            Title = "Toyota Rav4",
+                            YearOfIssue = 2000 + i,
+                            SubTitle = "SUV 5 Doors",
+                            Volume = (double)i,
+                            Mileage = i,
+                            Location = "Bishkek",
+                            Liked = true,
+                            Images = new List<string>()
+                        {
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                        },
+                            Price = i * countToSkip
+                        });
+                }
+                else
+                {
+                    Cars.Add(new Car
+                        {
+                            CarId = i,
+                            Color = "#00cc54",
+                            Title = "Toyota Rav4",
+                            YearOfIssue = 2000 + i,
+                            SubTitle = "Suv 5 Doors",
+                            Volume = (double)i,
+                            Mileage = i,
+                            Location = "Bishkek",
+                            Liked = false,
+                            Images = new List<string>()
+                        {
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                            $"https://picsum.photos/id/{i}/200/300",
+                        },
+                            Price = i * countToSkip
+
+                        });
                 }
 
             }
