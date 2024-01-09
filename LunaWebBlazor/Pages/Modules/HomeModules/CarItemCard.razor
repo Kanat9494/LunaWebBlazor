@@ -1,4 +1,6 @@
-﻿<style>
+﻿@inject NavigationManager Navigation
+
+<style>
     .car-item-cart {
         height: 160px;
         background: #E3F2FD;
@@ -62,7 +64,7 @@
     }
 </style>
 
-<div class="col-md-4 col-12 mb-3">
+<div class="col-md-4 col-11 mb-3">
     <div class="w-100 max-width-407 car-item-cart">
         <div class="row">
             <div class="col-10 text-start d-flex" >
@@ -87,7 +89,7 @@
             </div>
         </div>
 
-        <div class="row" style="cursor: pointer;" >
+        <div class="row" style="cursor: pointer;" @onclick="NavigateToCarInfo">
             <div class="col-4">
                 <div class="image-box ml-5">
 
@@ -144,11 +146,16 @@
     </div>
 </div>
 
+
+
 @code {
     [Parameter]
     public Car CarItem { get; set; }
 
     private string CarColor => CarItem.Color;
 
-    
+    private async Task NavigateToCarInfo()
+    {
+        Navigation.NavigateTo("counter");
+    }
 }

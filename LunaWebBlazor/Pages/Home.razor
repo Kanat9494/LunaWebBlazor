@@ -2,6 +2,7 @@
 
 @inject IStringLocalizer<Home> HLocalizer
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
 
 <PageTitle>Home</PageTitle>
 
@@ -105,6 +106,7 @@
 </style>
 
 <span id="topAnchor"></span>
+
 <div class="container mobile-search mb-3 justify-content-center p-0 ">
     <input @bind="_startPrice" class="custom-input form-control" type="number"
            placeholder="Start from" />
@@ -391,6 +393,7 @@
     </div>
 
 </div>
+
 
 
 @code {
@@ -680,5 +683,10 @@
         }
 
         await JS.InvokeVoidAsync("scrollToTop");
+    }
+
+    private async Task NavigateToCarInfo()
+    {
+        Navigation.NavigateTo("counter");
     }
 }
