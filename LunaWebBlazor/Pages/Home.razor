@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @inject IStringLocalizer<Home> HLocalizer
+@inject IJSRuntime JS
 
 <PageTitle>Home</PageTitle>
 
@@ -103,7 +104,7 @@
     
 </style>
 
-
+<span id="topAnchor"></span>
 <div class="container mobile-search mb-3 justify-content-center p-0 ">
     <input @bind="_startPrice" class="custom-input form-control" type="number"
            placeholder="Start from" />
@@ -111,7 +112,7 @@
 
 
 <div class="container desktop-search justify-content-center">
-    <h2 class="text-center" style="font-size: 24px; font-weight: 700; color: #3066BE">@_filterText</h2>
+    <h2 class="text-center" style="font-size: 24px; font-weight: 700; color: #3066BE" >@_filterText</h2>
 
     <div class="row">
         <div class="col-6">
@@ -301,6 +302,42 @@
         <div class="col-3">
         </div>
     </div>
+
+    <div class="text-center container" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-12">
+                <input type="button" class="btn" id="prev" value="@HLocalizer["Previous"]" @onclick="() => HandlePageNumber(_currentPage - 1)" />
+
+                @for (int i = 0; i <= _pageCount; i++)
+                {
+                    int j = i;
+                    if (i > 0)
+                    {
+                        if (i == _currentPage)
+                        {
+                            <span style="color: #3066BE; font-weight: bold; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+                        }
+                        else if (i == _currentPage + 1)
+                        {
+                            <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+                        }
+                        else if (i == _currentPage - 1)
+                        {
+                            <span style="color: #3066BE; cursor: pointer;" class="px-2" @onclick="() => HandlePageNumber(j)">@i</span>
+
+                        }
+                    }
+
+                }
+
+
+                <input type="button" class="btn" id="nex" value="@HLocalizer["Next"]" @onclick="() => HandlePageNumber(_currentPage + 1)" />
+            </div>
+        </div>
+
+    </div>
 </div> 
 
 <div class="container mt-2">
@@ -319,10 +356,10 @@
 
 
 
-<div class="text-center container">
+<div class="text-center container " style="margin-bottom: 55px;">
     <div class="row">
         <div class="col-12">
-            <input type="button" class="btn-lg btn" id="prev" value="Previous" @onclick="() => HandlePageNumber(_currentPage - 1)" />
+            <input type="button" class="btn" id="prev" value="@HLocalizer["Previous"]" @onclick="() => HandlePageNumber(_currentPage - 1)" />
 
             @for (int i = 0; i <= _pageCount; i++)
             {
@@ -349,7 +386,7 @@
             }
 
 
-            <input type="button" class="btn-lg btn" id="nex" value="Next" @onclick="() => HandlePageNumber(_currentPage + 1)" />
+            <input type="button" class="btn" id="nex" value="@HLocalizer["Next"]" @onclick="() => HandlePageNumber(_currentPage + 1)" />
         </div>
     </div>
 
@@ -641,5 +678,7 @@
 
             }
         }
+
+        await JS.InvokeVoidAsync("scrollToTop");
     }
 }

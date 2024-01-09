@@ -129,6 +129,12 @@
   <data name="Model" xml:space="preserve">
     <value>Модель</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Кийинки</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Мурдакы</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Баасы</value>
   </data>
